@@ -1,11 +1,19 @@
 public class Main{
     public static void main(String[] args) {
      BinaryTree tree=new BinaryTree();
-     tree.insert(56);
-     tree.insert(30);
-     tree.insert(70);   
+int[] array={56,30,20,40,11,3,16,70,60,95,65,63,67};
+for(int ele:array){
+    tree.insert(ele);
+}  
      System.out.println("Tree Has");
      tree.print();
+     System.out.println();
+     if(tree.size()==array.length){
+        System.out.println("every element is inserted in the tree");
+     }
+     else{
+        System.out.println("Not Inserted Completely");
+     }
     }
 }
 class Node{
@@ -48,4 +56,17 @@ class BinaryTree{
         printRec(root.right);
       }
     }
+    public int size(){
+        return sizeOfTree(root);
+    }
+  public int sizeOfTree(Node root){
+    if(root == null){
+        return 0;
+    }
+    else{
+        int s1=sizeOfTree(root.left);
+        int s2=sizeOfTree(root.right);
+        return s1+s2+1;
+    }
+  }
 }
