@@ -12,7 +12,11 @@ public class HashMapProgram {
                 map.put(word,count+1);
             }
         }
-
+        System.out.println("Before Removing");
+        map.print();
+        map.remove("avoidable");
+        System.out.println();
+        System.out.println("After Removing");
         map.print();
     }
 }
@@ -58,11 +62,8 @@ class MyHashMap<K,V>{
         temp.next=new MyMapNode<>(key,value);
    } 
    public V get(K key){
-         // DIFFERENCE
         int index=getIndex(key);
-
-        // DIFFERENCE
-        MyMapNode<K,V> temp=buckets[index];
+MyMapNode<K,V> temp=buckets[index];
 
         while(temp!=null){
 
@@ -93,4 +94,22 @@ for(int i=0;i<buckets.length;i++){
         }
     }
     }
+    public void remove(K key){
+    int index=getIndex(key);
+    MyMapNode<K,V> temp=buckets[index];
+    MyMapNode<K,V> prev=null;
+    while(temp!=null){
+        if(temp.key.equals(key)){
+        if(prev==null){
+        buckets[index]=temp.next;
+       }
+        else{
+       prev.next=temp.next;
+        }
+     return;
+        }
+        prev=temp;
+        temp=temp.next;
+    }
+}
 }
