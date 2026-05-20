@@ -58,11 +58,8 @@ class MyHashMap<K,V>{
         temp.next=new MyMapNode<>(key,value);
    } 
    public V get(K key){
-         // DIFFERENCE
         int index=getIndex(key);
-
-        // DIFFERENCE
-        MyMapNode<K,V> temp=buckets[index];
+MyMapNode<K,V> temp=buckets[index];
 
         while(temp!=null){
 
