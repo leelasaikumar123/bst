@@ -14,6 +14,12 @@ for(int ele:array){
      else{
         System.out.println("Not Inserted Completely");
      }
+     if(tree.search(63)){
+        System.out.println("Node is Present");
+     }
+     else{
+        System.out.println("Node is not present");
+     }
     }
 }
 class Node{
@@ -68,5 +74,22 @@ class BinaryTree{
         int s2=sizeOfTree(root.right);
         return s1+s2+1;
     }
+  }
+  public boolean search(int data){
+  return searchTree(data, root);
+  } 
+  public boolean searchTree(int data,Node root){
+    if(root != null){
+   if(root.data==data){
+    return true;
+   }
+   else if(data<root.data){
+   return  searchTree(data, root.left);
+   }
+      else if(data>root.data){
+   return searchTree(data, root.right);
+   }
+    }
+    return false;
   }
 }
