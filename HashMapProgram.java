@@ -1,6 +1,6 @@
 public class HashMapProgram {
-    public static void main(String[] args) {
-        String sentence="To be or not to be";
+    public static void main(String[] args) {    
+        String sentence= "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
         String[] words=sentence.toLowerCase().split(" ");
         MyHashMap<String,Integer> map=new MyHashMap<>();
         for(String word:words){
@@ -26,27 +26,43 @@ class MyMapNode<K,V>{
     }
 }
 class MyHashMap<K,V>{
-   MyMapNode<K,V> head;
+   MyMapNode<K,V>[] buckets;
+     MyHashMap(){
+  buckets=new MyMapNode[10];
+    }
+   public  int getIndex(K key) {
+    return Math.abs(key.hashCode()) % buckets.length;
+}
    public void put(K key,V value){
-      if(head==null){
-            head=new MyMapNode<>(key,value);
+ int index=getIndex(key);
+ MyMapNode<K,V> temp=buckets[index];
+         if(buckets[index]==null){
+
+            buckets[index]=new MyMapNode<>(key,value);
             return;
         }
-      MyMapNode<K,V> temp=head;
-      while(temp != null){
-        if(temp.key.equals(key)){
-            temp.value=value;
-            return;
-        }
-          if(temp.next==null){
+               while(temp!=null){
+
+            if(temp.key.equals(key)){
+                temp.value=value;
+                return;
+            }
+
+            if(temp.next==null){
                 break;
             }
-        temp=temp.next;
-      } 
-      temp.next=new MyMapNode(key, value); 
+
+            temp=temp.next;
+        }
+
+        temp.next=new MyMapNode<>(key,value);
    } 
    public V get(K key){
-    MyMapNode<K,V> temp=head;
+         // DIFFERENCE
+        int index=getIndex(key);
+
+        // DIFFERENCE
+        MyMapNode<K,V> temp=buckets[index];
 
         while(temp!=null){
 
@@ -56,11 +72,18 @@ class MyHashMap<K,V>{
 
             temp=temp.next;
         }
+
         return null;
    }
        public void print(){
+for(int i=0;i<buckets.length;i++){
 
-        MyMapNode<K,V> temp=head;
+        MyMapNode<K,V> temp=buckets[i];
+
+        if(temp!=null){
+
+            System.out.println("Bucket "+i);
+        }
 
         while(temp!=null){
 
@@ -68,5 +91,6 @@ class MyHashMap<K,V>{
 
             temp=temp.next;
         }
+    }
     }
 }
